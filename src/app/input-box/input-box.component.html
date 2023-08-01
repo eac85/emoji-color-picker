@@ -1,0 +1,16 @@
+<div class="container d-flex">
+  <div class="form-group">
+    <div class="color-picker-container" *ngIf="showColorPickerFlag">
+    <input 
+        class="form-control form-control-lg"
+        [value]="selectedColor"
+       [style.background]="selectedColor"
+       [cpCancelButton]="true"
+       [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+       [(colorPicker)]="selectedColor"
+       (colorPickerChange)="onColorChange($event)"/>
+    </div>
+  </div>
+  <div class = "emoji emoji-list"> {{ getSelectedEmoji() }} </div>
+</div>
+

@@ -1,0 +1,53 @@
+/* app.component.css */
+
+.about-link {
+  position: fixed;
+  top: 10px; 
+  left: 10px; 
+  color: #31326B; 
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family:Satoshi-Bold;
+}
+
+.about-link:hover {
+  color: #31326B; 
+  text-decoration: underline;
+}
+
+body {
+	background-color: #EEECE0;
+	font-family:Satoshi-Regular;
+}
+
+h1 {
+	color: #31326B;
+	padding-top: 100px;
+	font-family:Satoshi-Bold;
+	font-size: 30px;
+}
+
+/* emojis.component.css */
+
+.emoji-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emoji {
+  font-size: 50px;
+  margin: 5px;
+}
+
+.color-picker-container {
+  position: relative;
+  z-index: 1;
+}
+
+.ngx-color-picker-container {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+}
