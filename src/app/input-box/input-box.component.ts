@@ -12,7 +12,7 @@ import { Subject, Observable } from 'rxjs';
 export class InputBoxComponent {
    showColorPickerFlag = true;
    stringColor = 'white';
-   selectedColor = '#ffffff'; // Default color
+   selectedColor = '🔍'; // Default color
    emojiList = ' '; 
    redEmojis = ['❤️', '🍎', '🚗', '🚒', '🌹', '🍓', '🍅', '🥊', '🔴', '🎈', '🎒', '🌶️', '🍄', '🍷', '🍉', '🌺', '🎀', '🌶️', '🎠', '🚀'];
    yellowEmojis = ['💛', '🌼', '🐥', '🌻', '🌕', '🌟', '🌞', '🚕', '⭐', '🎗️', '🐝', '🎪', '🍋', '🍯', '🍌', '🍀', '🚜', '🔔', '🎡', '🐤'];
@@ -23,6 +23,11 @@ export class InputBoxComponent {
    orangeEmojis = ['🧡', '🍊', '🦁', '🐅', '🐒', '🔥', '🌅', '🌇', '🚒', '🍁', '🎃', '🎑', '🌕', '🌥️', '🦊', '🚀', '🍂', '🔶', '🌞', '🎈'];
    pinkEmojis = ['💗', '🎀', '🌸', '💕', '🐷', '💘', '🌷', '🎈', '🎆', '🍇', '🎵', '🦄', '🎵', '🎶', '🌸', '🦢', '🎀', '🌸', '🎆', '🎈'];
    brownEmojis = ['🤎', '🦔', '🐕', '🦊', '🌰', '🦉', '🍫', '🍂', '🐻', '🌾', '🍯', '🏇', '🚙', '🎃', '🌰', '🦡', '🐕', '🐿️', '🦢', '🌲'];
+
+  onShuffleClick(): void {
+      this.selectedColor = getRandomHexColor();
+      this.onColorChange(this.selectedColor);
+    }
 
   showColorPicker() {
     this.showColorPickerFlag = true;
@@ -62,13 +67,23 @@ const getEmojisByColor = (color: any) => {
         '🎨', '🚀', '🔷', '💦', '🐟', '🛵', '🎐', '🦋', '🦢', '🌈'];
     case 'purple':
       return ['💜', '🦄', '🎆', '🌂', '🎵', '🎸', '🍇', '🦑', '🍆', '🎼', 
-    '🔮', '🎵', '🦔', '🌌', '🔮', '🌆', '🎹', '🌸', '🌈', '🎺'];
+    '🔮', '🎵', '🦔', '🌌', '🔮', '🌆', '🎹', '🌸', '🌈', '🎺', '🍠'];
     case 'pink':
-      return ['💗', '🎀', '🌸', '💕', '🐷', '💘', '🌷', '🎈', '🎆', '🍇', 
-        '🎵', '🦄', '🎵', '🎶', '🌸', '🦢', '🎀', '🌸', '🎆', '🎈'];
+      return ['💗', '🎀', '💕', '🐷', '💘', '🌷', '🎈', '🎆', '🍇', 
+        '🎵', '🦄', '🎵', '🎶', '🌸', '🦢', '🎀', '🎆', '🎈', '👚', 
+        '👛', '🐽', '🏳️‍⚧️', '🐖'];
     case 'orange':
       return ['🧡', '🍊', '🦁', '🐅', '🐒', '🔥', '🌅', '🌇', '🚒', '🍁', 
-        '🎃', '🎑', '🌕', '🌥️', '🦊', '🚀', '🍂', '🔶', '🌞', '🎈']
+        '🎃', '🎑', '🌕', '🌥️', '🦊', '🚀', '🍂', '🔶', '🌞', '🎈'];
+    case 'white':
+       return ['⚪', '◽', '🤍', '❕', '❔', '🏳', '🐶', '🕊', '🦷', '🥥', 
+        '🐻‍❄️', '🦢', '🥼', '🦴'];
+    case 'black':
+      return ['⚫', '🖤', '◼', '◾', '✒', '🏴', '🐈‍⬛', '🏴‍☠️', '♣️', '🎬', '🚓', 
+        '💂‍♀️'];
+    case 'gray':
+      return ['👽', '🐘', '🧦', '🦡', '🐰', '☕️', '🌚', '🐺', '🐨', '☑️', 
+        '🐭', '🎬', '🚓', '🔍'];
     default:
       return [];
   }
@@ -80,16 +95,27 @@ function getBasicColorFromHex(hexValue: String) {
   const green = parseInt(hexValue.substring(3, 5), 16);
   const blue = parseInt(hexValue.substring(5, 7), 16);
 
+  console.log(red + ' ' + green + ' ' + blue + ' ');
   // Determine the basic color based on RGB values
   if (red > green && red > blue) {
     // Red is dominant
-    return 'red';
+    if (blue > green) return 'pink'
+    else if (green > 200) return 'yellow'
+    else if (green > 150) return 'orange'
+    else return 'red';
   } else if (green > red && green > blue) {
     // Green is dominant
     return 'green';
   } else if (blue > red && blue > green) {
     // Blue is dominant
-    return 'blue';
+    if (red > green) return 'purple'
+    else return 'blue';
+  } else if (red > 200 && green > 200 && blue < 110) {
+    return 'yellow'
+  } else if (red == 0 && green == 0 && blue == 0){
+    return 'black';
+  } else if (red > 230 && green > 230 && blue > 230){
+    return 'white';
   } else if (red === green && green === blue) {
     // All components are equal (shades of gray)
     return 'gray';
@@ -114,5 +140,15 @@ function getBasicColorFromHex(hexValue: String) {
       return 'red'; // Handle cases near 360 degrees (back to red)
     }
   }
+}
+
+
+function getRandomHexColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
 
